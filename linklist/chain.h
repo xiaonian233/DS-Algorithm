@@ -1,6 +1,6 @@
 #include"chainNode.h"
 #include<algorithm>
-#include"F:\Microsoft VS Code\projects\linearList\linearList.h"
+#include"linearList\linearList.h"
 template<typename T>
 class chain : public linearList<T>
 {
