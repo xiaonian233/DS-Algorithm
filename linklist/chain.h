@@ -1,6 +1,6 @@
 #include"chainNode.h"
 #include<algorithm>
-#include"linearList\linearList.h"
+#include"D:\DS-Algorithm\linearList\linearList.h"
 template<typename T>
 class chain : public linearList<T>
 {
@@ -19,6 +19,7 @@ public:
     void erase(int theIndex);
     void insert(int theIndex, const T& theElement);
     void output(ostream& out) const;
+    void binSort(int range);
     class iterator;
     iterator begin(){return iterator(firstnode);}
     iterator end() {return iterator(NULL);}
@@ -169,4 +170,44 @@ ostream& operator<<(ostream& out,const chain<T>& x)
 {
     x.output(out);
     return out;
+}
+template<typename T>
+void chain<T>::binSort(int range)
+{
+    chainNode<T> **bottom, **top;
+    bottom = new chainNode<T>* [range + 1];
+    top = new chainNode<T>* [range + 1];
+    for (int i = 0; i <= range; i++)
+    {
+        bottom[i] = NULL;
+    }
+    for (; firstnode != NULL; firstnode = firstnode->next)
+    {
+        int theBin = firstnode->element;
+        if(bottom[theBin] == NULL)
+            bottom[theBin] = top[theBin] = firstnode;
+        else
+        {
+            top[theBin]->next = firstnode;
+            top[theBin] = firstnode;
+        }
+    }
+    chainNode<T> *y = NULL;
+    for (int theBin = 0; theBin <= range; theBin++)
+    {
+        if(bottom[theBin] != NULL)
+        {
+            if(y == NULL)
+                firstnode = bottom[theBin];
+            else
+                y->next = bottom[theBin];
+            y = top[theBin];
+        }
+    }
+    if (y!=NULL)
+    {
+        y->next = NULL;
+    }
+    delete[] bottom;
+    delete[] top;
 }
