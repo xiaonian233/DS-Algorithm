@@ -70,7 +70,7 @@ class arrayList : public linearList<T>
         typedef T& reference;
         iterator(T* thePosition = 0){position = thePosition;}
         T& operator*() const {return *position;}
-        T* operator->() const {return *&position;}
+        T* operator->() const {return &*position;}
         iterator& operator++()
         {
             ++position;
